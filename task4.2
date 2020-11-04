@@ -1,0 +1,20 @@
+#!bin/bash
+
+ls ~/ > list2
+
+ammount=$( ls ~/ -l | wc -l ) #ammount of objects in directory 
+
+name1=$( sed '1!d' list2 )
+
+names2=$( ls ~/$name1 -l | wc -l ) #checks ammount of files inside
+for((i=2;i<ammount;i++))
+do
+name2=$( sed $i'!d' list2 )
+names2=$( list ~/$name2 -l | wc -l ) #compares ammount of files
+if [ $names2 -gt $names1 ]
+then 
+names1 = $names2
+name1=$name2
+fi
+done
+echo $name1 " has the most files"
