@@ -1,0 +1,36 @@
+#!/bin/bash
+
+filenumber=${ ls -l | wc -l }   #number of files
+
+ls > list #puts file names into a list
+
+filename1=${ sed '1!d' list }  
+filesize1=${ stat -c%s $filename1 }  #baseline size
+
+for {(i=2;i<$filenumber;i++)} 
+do
+filename2=${ sed $i'!d' list }
+filesize2=${ stat -c%s $filename2 }
+if [ $filesize2 -gt $filesize1 ]   #compares each file
+then
+filesize1=$filesize2
+filename1=$filenam2
+fi
+done
+
+echo $filename1 "is the largest file"  #largest file in directory
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
